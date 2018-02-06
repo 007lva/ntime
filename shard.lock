@@ -1,0 +1,10 @@
+version: 1.0
+shards:
+  cossack:
+    github: crystal-community/cossack
+    version: 0.1.4
+
+  crest:
+    github: mamantoha/crest
+    version: 0.9.6
+
