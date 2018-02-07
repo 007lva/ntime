@@ -6,7 +6,7 @@ authors:
 
 targets:
   nettime:
-    main: src/nettime.cr
+    main: src/ntime.cr
 
 crystal: 0.24.1
 

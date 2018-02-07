@@ -1,4 +1,4 @@
-require "./nettime/*"
+require "./ntime/*"
 require "crest"
 require "json"
 
