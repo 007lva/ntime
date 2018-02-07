@@ -20,9 +20,7 @@ sleep 1
 request4 = Crest.get("http://192.168.1.200:8091/api/async/response", params: {"taskid" => Task.from_json(request2.body).taskId}, cookies: request2.cookies)
 request5 = Crest.get("http://192.168.1.200:8091/api/async/response", params: {"taskid" => Task.from_json(request3.body).taskId}, cookies: request3.cookies)
 
-last_clocking = JSON.parse(request5.body)["clockings"]
-                    .map { |item| item["date"].to_s }
-                    .last
+last_clocking = JSON.parse(request5.body)["clockings"].to_a.last
 results = JSON.parse(request4.body)["results"][0]["minutesTypes"]
               .select { |item| item["name"] == "Aritmetico" }
               .map { |item| item["results"] }
@@ -32,4 +30,4 @@ puts "Saldo diario acumulado: #{results[0]["values"][1]["value"].as_i} min"
 puts "Saldo mensual acumulado: #{results[1]["values"][1]["value"].as_i} min"
 puts "Saldo anual acumulado: #{results[2]["values"][1]["value"].as_i} min"
 puts "Días de vacaciones utilizados: #{results[3]["values"][1]["value"].as_i}"
-puts "Último movimiento: #{Time.parse(last_clocking, "%FT%T")}"
+puts "Último movimiento: #{Time.parse(last_clocking["date"].to_s, "%FT%T")} (#{last_clocking["status"]["desc"]})"
