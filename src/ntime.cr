@@ -15,7 +15,7 @@ request1 = Crest.post("http://192.168.1.200:8091/api/login", payload: "{\"userna
 request2 = Crest.get("http://192.168.1.200:8091/api/results", params: {"from" => today, "to" => today}, cookies: request1.cookies)
 request3 = Crest.get("http://192.168.1.200:8091/api/clockings", params: {"date" => today}, cookies: request1.cookies)
 
-sleep 1
+sleep 0.07
 
 request4 = Crest.get("http://192.168.1.200:8091/api/async/response", params: {"taskid" => Task.from_json(request2.body).taskId}, cookies: request2.cookies)
 request5 = Crest.get("http://192.168.1.200:8091/api/async/response", params: {"taskid" => Task.from_json(request3.body).taskId}, cookies: request3.cookies)
