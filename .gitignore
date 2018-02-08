@@ -3,5 +3,6 @@
 /bin/
 /.shards/
 ntime
+!/ntime/
 nettime
 bc_flags
