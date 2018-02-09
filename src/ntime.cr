@@ -8,6 +8,10 @@ class Task
   )
 end
 
+def to_time_span(value : JSON::Any)
+  Time::Span.new(0, value.as_i, 0)
+end
+
 today = Time.now.to_s("%F") # Date in ISO8601
 
 request1 = Crest.post("http://192.168.1.200:8091/api/login", payload: "{\"username\":\"#{ENV["user"]}\",\"pwd\":\"#{ENV["pwd"]}\"}")
@@ -26,8 +30,8 @@ results = JSON.parse(request4.body)["results"][0]["minutesTypes"]
               .map { |item| item["results"] }
               .first
 
-puts "Saldo diario acumulado: #{results[0]["values"][1]["value"].as_i} min"
-puts "Saldo mensual acumulado: #{results[1]["values"][1]["value"].as_i} min"
-puts "Saldo anual acumulado: #{results[2]["values"][1]["value"].as_i} min"
+puts "Saldo diario acumulado: #{to_time_span(results[0]["values"][1]["value"])}h"
+puts "Saldo mensual acumulado: #{to_time_span(results[1]["values"][1]["value"])}h"
+puts "Saldo anual acumulado: #{to_time_span(results[2]["values"][1]["value"])}h"
 puts "Días de vacaciones utilizados: #{results[3]["values"][1]["value"].as_i}"
 puts "Último movimiento: #{Time.parse(last_clocking["date"].to_s, "%FT%T")} (#{last_clocking["status"]["desc"]})"
