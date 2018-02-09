@@ -8,7 +8,7 @@ class Task
   )
 end
 
-today = Time::Format.new("%F").format(Time.now).to_s # Date in ISO8601
+today = Time.now.to_s("%F") # Date in ISO8601
 
 request1 = Crest.post("http://192.168.1.200:8091/api/login", payload: "{\"username\":\"#{ENV["user"]}\",\"pwd\":\"#{ENV["pwd"]}\"}")
 
